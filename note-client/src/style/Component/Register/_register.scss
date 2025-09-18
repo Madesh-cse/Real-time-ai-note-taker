@@ -1,0 +1,131 @@
+// src/style/Component/Auth/_auth.scss
+
+$bg: #0b1220;
+$panel: #0f1b2e;
+$panel-2: #0b63f6;
+$text: #e6eefb;
+$muted: #9bb3d6;
+$line: rgba(255, 255, 255, 0.08);
+$accent: #0b63f6;
+$accent-2: #5cb3ff;
+$danger: #ff5d5d;
+$shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+$radius: 16px;
+
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding:5px 20px;
+  min-height: 100vh;
+  background: linear-gradient(180deg, $bg, $panel);
+
+  .auth-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid $line;
+    border-radius: $radius;
+    padding: 30px 40px;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: $shadow;
+    text-align: center;
+    backdrop-filter: blur(12px);
+
+    h2 {
+      margin: 0 0 10px;
+      font-size: 28px;
+      color: $text;
+    }
+
+    .auth-subtitle {
+      color: $muted;
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+    }
+
+    .auth-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+
+      .form-group {
+        text-align: left;
+
+        label {
+          display: block;
+          font-weight: 600;
+          margin-bottom: 6px;
+          color: $text;
+          font-family: sans-serif;
+        }
+
+        input {
+          width: 100%;
+          padding: 12px 14px;
+          border: 1px solid $line;
+          border-radius: 999px;
+          background: $panel;
+          color: $text;
+          font-size: 1rem;
+          outline: none;
+          transition: all 0.25s ease;
+
+          &:focus {
+            border-color: $accent;
+            box-shadow: 0 0 0 3px rgba($accent, 0.25);
+          }
+
+          &:hover {
+            border-color: $accent-2;
+          }
+        }
+      }
+
+      .btn.full-width {
+        width: 100%;
+        padding: 14px;
+        font-size: 1rem;
+        border-radius: 999px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.25s ease, transform 0.2s ease;
+
+        &.solid {
+          background: $accent;
+          color: $text;
+          border: none;
+
+          &:hover {
+            background: $accent-2;
+            transform: translateY(-2px);
+          }
+        }
+      }
+    }
+
+    .auth-footer {
+      margin-top: 16px;
+      color: $muted;
+      font-size: 0.9rem;
+
+      a {
+        color: $accent;
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.2s ease;
+
+        &:hover {
+          color: $accent-2;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 480px) {
+    .auth-card {
+      padding: 24px 20px;
+    }
+  }
+}

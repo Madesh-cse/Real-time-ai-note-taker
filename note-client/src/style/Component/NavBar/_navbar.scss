@@ -1,0 +1,96 @@
+$bg: #0b1220;
+$panel: #0f1b2e;
+$panel-2: #0b63f6;
+$text: #e6eefb;
+$muted: #9bb3d6;
+$line: rgba(255, 255, 255, 0.08);
+$accent: #0b63f6;
+$accent-2: #5cb3ff;
+$danger: #ff5d5d;
+$shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+$radius: 16px;
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 24px;
+  font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: linear-gradient(180deg, #050a16, #091326 50%, #0b1220);
+  color: $text;
+  border-bottom: 1px solid $line;
+  backdrop-filter: blur(10px);
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: $text;
+    font-weight: 800;
+
+    &.small {
+      .brand-text {
+        font-weight: 700;
+      }
+    }
+
+    .brand-mark {
+      display: inline-block;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: conic-gradient(from 180deg at 50% 50%, $accent, $accent-2);
+      box-shadow: 0 6px 14px rgba(11, 99, 246, 0.5);
+    }
+  }
+
+  .nav-links {
+    a {
+      color: $muted;
+      text-decoration: none;
+      margin: 0 10px;
+      font-weight: 600;
+
+      &:hover {
+        color: $text;
+      }
+    }
+  }
+
+  .nav-cta {
+    display: flex;
+    gap: 10px;
+
+    .btn {
+      padding: 8px 16px;
+      border-radius: $radius;
+      font-weight: 600;
+      text-decoration: none;
+
+      &.outline {
+        border: 1px solid $accent;
+        color: $accent;
+        background: transparent;
+
+        &:hover {
+          background: $accent;
+          color: $text;
+        }
+      }
+
+      &.solid {
+        background: $accent;
+        color: $text;
+        border: none;
+
+        &:hover {
+          background: $accent-2;
+        }
+      }
+    }
+  }
+}
