@@ -1,8 +1,12 @@
 import "../../style/Component/Register/_home.scss";
 import HomeCard from "../Extra-Feature/HomeCard";
 import Footer from "../Footer/Footer";
+import { useNavigate } from "react-router-dom";
 
 const AuthenticatedHome: React.FC = () => {
+
+  const navigate = useNavigate()
+
   const goJoinFromHero = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const meetingIdInput = (
@@ -19,9 +23,7 @@ const AuthenticatedHome: React.FC = () => {
   };
 
   const handleNewMeeting = () => {
-    // generate random meeting ID
-    const newMeetingId = Math.floor(100000 + Math.random() * 900000).toString();
-    window.location.href = `/meeting/${newMeetingId}`;
+    navigate('/new-meeting')
   };
 
   return (
