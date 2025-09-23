@@ -1,0 +1,103 @@
+// _newMeeting.scss
+
+.new-meeting-page {
+  .nav {
+    display: flex;
+    align-items: center;
+    padding: 16px 24px;
+    background: var(--nav-bg, transparent);
+
+    .brand {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: inherit;
+
+      .brand-mark {
+        width: 20px;
+        height: 20px;
+        background: var(--accent);
+        border-radius: 50%;
+        margin-right: 8px;
+      }
+
+      .brand-text {
+        font-weight: 600;
+        font-size: 1.2rem;
+      }
+    }
+  }
+
+  .new-meeting-box {
+    max-width: 500px;
+    margin: 120px auto;
+    padding: 28px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+    text-align: center;
+    font-family: sans-serif;
+
+    h2 {
+      margin-top: 0;
+      font-size: 1.4rem;
+      color: #fff;
+    }
+
+    p {
+      margin: 12px 0 20px;
+      color: var(--text-secondary, #ccc);
+    }
+
+    .meeting-link-box {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #0c1a30;
+      border: 1px solid var(--line);
+      padding: 12px;
+      border-radius: 10px;
+      margin: 18px 0;
+      font-weight: 600;
+      color: var(--accent-2);
+      word-break: break-all;
+
+      span {
+        flex: 1;
+      }
+
+      .copy-btn {
+        margin-left: 12px;
+        cursor: pointer;
+        border: none;
+        background: var(--accent);
+        color: white;
+        border-radius: 8px;
+        padding: 8px 12px;
+        font-weight: 600;
+        transition: 0.2s;
+
+        &:hover {
+          background: #094dcc;
+        }
+      }
+    }
+
+    .btn.solid {
+      margin-top: 12px;
+      padding: 10px 16px;
+      border-radius: 8px;
+      background: var(--accent);
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: 0.2s;
+
+      &:hover {
+        background: #094dcc;
+      }
+    }
+  }
+}
