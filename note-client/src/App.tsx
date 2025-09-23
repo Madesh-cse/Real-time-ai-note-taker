@@ -4,6 +4,8 @@ import SignUp from "./Components/Authentication/SignUp";
 import Navbar from "./Components/Navbar/Navbar";
 import Login from "./Components/Authentication/Login";
 import Home from "./Pages/Home";
+import NewMeeting from "./Components/Extra-Feature/NewMeetingPage";
+import MeetingRoom from "./Components/Extra-Feature/MeetingRoom";
 
 function App() {
   return (
@@ -14,6 +16,8 @@ function App() {
           <Route path="/" element={<SignUp />} />
           <Route path="Login" element={<Login/>}/>
           <Route path="Authenticated-Home" element={<Home/>}/>
+          <Route path="new-meeting" element={<NewMeeting/>}/>
+          <Route path="/meeting/:id" element={<MeetingRoom/>}/>
         </Routes>
       </Router>
     </>
