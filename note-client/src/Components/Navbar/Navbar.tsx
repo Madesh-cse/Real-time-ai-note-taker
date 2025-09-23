@@ -3,7 +3,7 @@ import "../../style/Component/NavBar/_navbar.scss"
 function Navbar() {
   return (
     <header className="nav">
-      <a className="brand" href="index.html">
+      <a className="brand" href="/">
         <span className="brand-mark" aria-hidden="true"></span>
         <span className="brand-text">NovaMeet</span>
       </a>
