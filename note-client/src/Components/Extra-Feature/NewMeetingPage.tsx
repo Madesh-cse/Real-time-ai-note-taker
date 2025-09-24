@@ -12,7 +12,9 @@ const NewMeeting: React.FC = () => {
     // Generate Meeting ID
     const id = Math.floor(Math.random() * 900000 + 100000).toString();
     setMeetingId(id);
-    setMeetingUrl(`${window.location.origin}/meeting/${id}`);
+    setMeetingUrl(`${window.location.origin}/#/meeting/${id}`);
+
+    localStorage.setItem("lastMeetingId", id)
   }, []);
 
   const copyLink = () => {

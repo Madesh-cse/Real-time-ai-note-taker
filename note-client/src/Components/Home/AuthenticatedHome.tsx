@@ -2,29 +2,32 @@ import "../../style/Component/Register/_home.scss";
 import HomeCard from "../Extra-Feature/HomeCard";
 import Footer from "../Footer/Footer";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 const AuthenticatedHome: React.FC = () => {
+  const navigate = useNavigate();
 
-  const navigate = useNavigate()
-
-  const goJoinFromHero = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const meetingIdInput = (
-      document.getElementById("meetingIdInput") as HTMLInputElement
-    ).value;
-
-    if (!meetingIdInput) {
-      alert("Please enter a meeting ID");
-      return;
+   const handleJoin = () => {
+    const lastMeetingId = localStorage.getItem("lastMeetingId");
+    if (lastMeetingId) {
+      navigate(`/meeting/${lastMeetingId}`);
+    } else {
+      alert("No meeting available. Please create one first!");
     }
-
-    // redirect to meeting
-    window.location.href = `/meeting/${meetingIdInput}`;
   };
 
   const handleNewMeeting = () => {
-    navigate('/new-meeting')
+    navigate("/new-meeting");
   };
+
+  const [lastMeetingId, setLastMeetingId] = useState<string>("");
+
+  useEffect(() => {
+    const savedId = localStorage.getItem("lastMeetingId");
+    if (savedId) {
+      setLastMeetingId(savedId);
+    }
+  }, []);
 
   return (
     <section className="home-bg">
@@ -36,17 +39,18 @@ const AuthenticatedHome: React.FC = () => {
             Zoom-like experience.
           </p>
 
-          <form className="join-form" onSubmit={goJoinFromHero}>
+          <form className="join-form">
             <input
               id="meetingIdInput"
               type="text"
               placeholder="Enter Meeting ID"
               inputMode="numeric"
               aria-label="Meeting ID"
+              defaultValue={lastMeetingId}
             />
-            <button className="btn solid" type="submit">
+            <button className="btn solid" type="submit" onClick={handleJoin}>
               Join
-            </button>
+            </button >
             <span className="or">or</span>
             <button
               className="btn outline"
@@ -145,8 +149,8 @@ const AuthenticatedHome: React.FC = () => {
           <span className="lo">Vertex</span>
         </div>
       </section>
-      <HomeCard/>
-      <Footer/>
+      <HomeCard />
+      <Footer />
     </section>
   );
 };
