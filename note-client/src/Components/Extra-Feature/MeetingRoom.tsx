@@ -6,6 +6,7 @@ import { FaMicrophone } from "react-icons/fa";
 import { FaMicrophoneSlash } from "react-icons/fa";
 import { FaPhone } from "react-icons/fa6";
 import { FaDesktop } from "react-icons/fa6";
+import { useParams } from "react-router-dom";
 
 const MeetingRoom: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -16,6 +17,12 @@ const MeetingRoom: React.FC = () => {
   const [screenSharing, setScreenSharing] = useState(false);
   const [captions, setCaptions] = useState<string>("");
   const [captionsOn, setCaptionsOn] = useState<boolean>(true);
+
+  const { id: meetingId } = useParams<{ id: string }>();
+
+  const [messages, setMessages] = useState<string[]>([]);
+  const [input, setInput] = useState("");
+  const wsRef = useRef<WebSocket | null>(null);
 
   const [currentTime, setCurrentTime] = useState<string>("");
 
@@ -30,6 +37,33 @@ const MeetingRoom: React.FC = () => {
 
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    if (!meetingId) return;
+
+    const ws = new WebSocket(`ws://localhost:8080?meetingId=${meetingId}`);
+    wsRef.current = ws;
+
+    ws.onopen = () => console.log("Connected to WebSocket:", meetingId);
+    ws.onmessage = (event) => {
+      setMessages((prev) => [...prev, event.data.toString()]);
+    };
+
+    ws.onclose = () => console.log("WebSocket disconnected");
+
+    return () => ws.close();
+  }, [meetingId]);
+
+  const sendMessage = () => {
+    if (!input || !wsRef.current) return;
+    wsRef.current.send(input);
+    setMessages((prev) => [...prev, `You: ${input}`]);
+    setInput("");
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") sendMessage();
+  };
 
   const toggleVideo = async () => {
     if (videoOn) {
@@ -136,13 +170,21 @@ const MeetingRoom: React.FC = () => {
 
   return (
     <div className="meeting-room">
-      <div className="video-section">
-        <video ref={videoRef} autoPlay playsInline muted={!micOn} />
-        {captions && (
-          <div className="live-captions" style={{ opacity: captions ? 1 : 0 }}>
-            {captions}
-          </div>
-        )}
+      <div className="video-container">
+        <div className="video-section">
+          <video ref={videoRef} autoPlay playsInline muted={!micOn} />
+          {captionsOn && captions && (
+            <div className="live-captions">{captions}</div>
+          )}
+        </div>
+
+        {/* Note-taking */}
+        <div className="note-taking">
+          <h3>Notes</h3>
+            {captionsOn && captions && (
+            <div className="live-captions">{captions}</div>
+          )}
+        </div>
       </div>
 
       <div className="control-bar">
@@ -184,7 +226,28 @@ const MeetingRoom: React.FC = () => {
           </button>
         </div>
         <div>
-            <button>Mad</button>
+          <button>Mad</button>
+        </div>
+      </div>
+      <div className="chat-section">
+        <div className="chat-container">
+          <div className="messages">
+            {messages.map((msg, i) => (
+              <div key={i} className="message">
+                {msg}
+              </div>
+            ))}
+          </div>
+          <div className="chat-input">
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={handleKeyDown}
+              placeholder="Type a message..."
+            />
+            <button onClick={sendMessage}>Send</button>
+          </div>
         </div>
       </div>
     </div>
